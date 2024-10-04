@@ -1,7 +1,3 @@
-# Person 1: Data Interpretation (Part 1)
-
-# Person 1: Data Interpretation (Part 1)
-
 from rich import print
 from IPython.display import display
 
