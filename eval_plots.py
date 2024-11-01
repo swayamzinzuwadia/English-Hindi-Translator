@@ -9,13 +9,3 @@ def evaluationPlotAccuracy(model):
     plt.grid()
     plt.legend()
     plt.show()
-
-def evaluationPlotLoss(model):
-    plt.plot(model.history["loss"], color="blue", label="loss")
-    plt.plot(model.history["val_loss"], color="red", label="val_loss")
-    plt.title("Training And Validation Loss Score")
-    plt.xlabel("loss")
-    plt.ylabel("epochs")
-    plt.grid()
-    plt.legend()
-    plt.show()
