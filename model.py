@@ -33,3 +33,20 @@ def build_model(
     decoder_outputs, _, _ = decoder_lstm(
         decoder_embedding, initial_state=encoder_states
     )
+
+def train_model(model, x_train, y_train, x_test, y_test):
+    early_stopping = EarlyStopping(
+        monitor="val_loss", patience=2, restore_best_weights=True
+    )
+    model_checkpoint = ModelCheckpoint("model_checkpoint.keras", save_best_only=True)
+
+    history = model.fit(
+        x=[x_train, y_train],
+        y=y_train,
+        batch_size=32,
+        epochs=3,
+        validation_data=([x_test, y_test], y_test),
+        callbacks=[early_stopping, model_checkpoint],
+    )
+
+    return history
