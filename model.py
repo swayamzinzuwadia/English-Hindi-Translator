@@ -34,6 +34,31 @@ def build_model(
         decoder_embedding, initial_state=encoder_states
     )
 
+    # Attention Layer
+    attention = MultiHeadAttention(
+        num_heads=8, key_dim=32, dropout=0.1, name="attention_layer"
+    )(query=decoder_outputs, key=encoder_outputs, value=encoder_outputs)
+
+    # Concatenate attention output with decoder outputs
+    decoder_concat_input = Concatenate(axis=-1)([decoder_outputs, attention])
+
+    # Dense Layer for output prediction
+    decoder_dense = Dense(output_vocab_size, activation="softmax")
+    decoder_outputs = decoder_dense(decoder_concat_input)
+
+    # Full Encoder-Decoder model
+    model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
+
+    # Compile the model
+    optimizer = AdamW(learning_rate=1e-4, weight_decay=1e-5)
+    model.compile(
+        optimizer=optimizer,
+        loss="sparse_categorical_crossentropy",
+        metrics=["accuracy"],
+    )
+
+    return model
+
 def train_model(model, x_train, y_train, x_test, y_test):
     early_stopping = EarlyStopping(
         monitor="val_loss", patience=2, restore_best_weights=True
