@@ -7,7 +7,12 @@ def bleu_scoring(hindi_sentences, predicted_sentences):
     blue = evaluate.load("bleu")
     scores = blue.compute(references=hindi_sentences, predictions=predicted_sentences)
     print("BLEU scores: ", scores)
-
+    
+def select_test_subset(x_test, y_test, num_samples=101):
+    x_test_subset = x_test[1:num_samples]
+    y_test_padded_subset = y_test[1:num_samples]
+    return x_test_subset, y_test_padded_subset
+    
 def map_indices_to_tokens(predicted_tokens_np, rev_tok_hindi, tok_hindi):
     predicted_sentences = []
     for sample in predicted_tokens_np:
