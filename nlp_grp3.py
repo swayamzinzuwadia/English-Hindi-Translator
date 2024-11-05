@@ -13,6 +13,13 @@ def select_test_subset(x_test, y_test, num_samples=101):
     y_test_padded_subset = y_test[1:num_samples]
     return x_test_subset, y_test_padded_subset
     
+def predict_translations(model, x_test_subset, y_test_padded_subset, batch_size=16):
+    predictions = model.predict(
+        [x_test_subset, y_test_padded_subset], batch_size=batch_size
+    )
+    print("Shape of predictions:", predictions.shape)
+    return predictions
+    
 def map_indices_to_tokens(predicted_tokens_np, rev_tok_hindi, tok_hindi):
     predicted_sentences = []
     for sample in predicted_tokens_np:
