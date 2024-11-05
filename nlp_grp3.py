@@ -12,6 +12,11 @@ def select_test_subset(x_test, y_test, num_samples=101):
     x_test_subset = x_test[1:num_samples]
     y_test_padded_subset = y_test[1:num_samples]
     return x_test_subset, y_test_padded_subset
+
+def convert_predictions_to_tokens(predictions):
+    predicted_tokens_np = np.argmax(predictions, axis=-1)
+    print("Shape of predicted_tokens:", predicted_tokens_np.shape)
+    return predicted_tokens_np
     
 def predict_translations(model, x_test_subset, y_test_padded_subset, batch_size=16):
     predictions = model.predict(
