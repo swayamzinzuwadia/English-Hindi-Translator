@@ -32,3 +32,10 @@ def map_sentences(x_test_subset, rev_tok):
         )
         sentences.append(sentence)
     return sentences
+
+def print_translations(english_sentences, predicted_sentences):
+    for idx, (eng_sentence, hin_sentence) in enumerate(
+        zip(english_sentences, predicted_sentences)
+    ):
+        display(f"English sentence {idx + 1}: {eng_sentence}")
+        display(f"Predicted Hindi translation {idx + 1}: {hin_sentence}")
