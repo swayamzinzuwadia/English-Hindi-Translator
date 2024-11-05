@@ -1,4 +1,7 @@
+import numpy as np
 import evaluate
+from rich import print
+from IPython.display import display
 
 def bleu_scoring(hindi_sentences, predicted_sentences):
     blue = evaluate.load("bleu")
