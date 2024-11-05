@@ -47,3 +47,6 @@ def print_translations(english_sentences, predicted_sentences):
     ):
         display(f"English sentence {idx + 1}: {eng_sentence}")
         display(f"Predicted Hindi translation {idx + 1}: {hin_sentence}")
+
+def get_rev_token_dict(tokenizer):
+    return {idx: word for word, idx in tokenizer.word_index.items()}
